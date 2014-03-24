@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--http://nskentc.blogspot.de/2013/03/count-down-timer-using-html5-canvas.html-->
+		<meta charset="utf-8">
+		<title>
+			work!
+		</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+		<script src="jquery.mousewheel.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
+		<script language="javascript" type="text/javascript" src="script.js"></script>
+		
+		<script type="text/javascript">
+		$(function() {
+				var spinner = $( "#spinner_work" ).spinner({min:0});
+				var spinner = $( "#spinner_pause" ).spinner({min:0});               
+				var spinner = $( "#spinner_cycle" ).spinner({min:1});
+			});
+
+		
+		
+		</script>
+	</head>
+	<body onload="init()">
+		<center>
+			<div class="header">
+				<div id="toggle" >
+					<div class="header_row" id="left">
+						<p class="header_cell">
+							work for:
+						</p>
+						<p class="header_cell">
+							relax for:
+						</p>
+						<p class="header_cell">
+							do
+						</p>
+					</div>
+					<div class="header_row">
+						<p class="header_cell">
+							<input id="spinner_work" name="work">
+						</p>
+						<p class="header_cell">
+							<input id="spinner_pause" name="pause">
+						</p>
+						<p class="header_cell">
+							<input id="spinner_cycle" name="cycle">
+						</p>
+					</div>
+					<div class="header_row" id="right">
+						<p class="header_cell">
+							minutes
+						</p>
+						<p class="header_cell">
+							minutes
+						</p>
+						<p class="header_cell">
+							cycles
+						</p>
+					</div>
+				</div><br>
+				<div id="buttons">
+					<button id="btn_pause" class="btn" onclick="pause()">pause</button><button id="btn_start" class="btn" onclick="start()">start</button> <button id="btn_reset" class="btn" onclick="hardReset()">reset</button>
+				</div>
+			</div>
+			<h1 id="txt">
+				work
+			</h1>
+			<div>
+				<div class="clock">
+					<canvas id="canvas_min" height="250" width="240" style="border:0px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
+					<p class="val" id="timeMin">
+						0
+					</p>
+				</div>
+				<div class="clock">
+					<canvas id="canvas_sec" height="250" width="240" style="border:0px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
+					<p class="val" id="timeSec">
+						0
+					</p>
+				</div>
+			</div>
+			<div>
+				<h2 id="cycleCount">
+					0 cycles to go
+				</h2>
+			</div>
+			<footer>
+				<p>
+					<a href="whatisthisabout.html">What is this?</a> - <a href="impressum.html">Impressum</a>
+				</p>
+			</footer>
+		</center>
+	</body>
+</html>
