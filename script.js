@@ -103,7 +103,6 @@ function pause() {
 function hardReset() {
 	toggleHeader("open");
 	setDisplayedValues(0, 0, 0);
-	button_reset();
 	reset();
 }
 
@@ -123,6 +122,7 @@ function reset() {
 	first = true;
 
 	initGraphics();
+	button_reset();
 
 	clearInterval(interval);
 }
@@ -130,19 +130,20 @@ function reset() {
 function button_start() {
 	document.getElementById("btn_pause").className = "btn";
 	document.getElementById("btn_start").className = "button_active";
-	document.getElementById("btn_start").innerText = "start";
+		setTextForElement("start", "btn_start");
+
 }
 
 function button_pause() {
 	document.getElementById("btn_start").className = "btn";
-	document.getElementById("btn_start").innerText = "resume";
+	setTextForElement("resume", "btn_start");
 	document.getElementById("btn_pause").className = "button_active";
 }
 
 function button_reset() {
 	document.getElementById("btn_start").className = "btn";
 	document.getElementById("btn_pause").className = "btn";
-	document.getElementById("btn_start").innerText = "start";
+	setTextForElement("start", "btn_start");
 }
 
 function initGraphics() {
