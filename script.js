@@ -1,5 +1,5 @@
 // constants
-var speed = 500;
+var speed = 1000;
 var sec_count_default = 0;
 var tick_for_seconds = 2 * Math.PI / (60);
 
@@ -239,7 +239,7 @@ function decreaseCycleCount() {
 }
 
 function startNextCycle() {
-	console.log("start next cycle");
+	//btnconsole.log("start next cycle");
 
 	if (work) {
 		if (minutes_pause > 0) {
