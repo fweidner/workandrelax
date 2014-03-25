@@ -1,20 +1,20 @@
 // constants
-var speed = 1000;
-var sec_count_default = 60;
+var speed = 500;
+var sec_count_default = 0;
 var tick_for_seconds = 2 * Math.PI / (60);
 
 
 //necessary values for the timer
-var	tick_for_minutes;
+var tick_for_minutes;
 var globCount_sec = 0;
 var globCount_min = 0;
 var interval;
 
 //control flow
 var started = false;
-var	paused = false;
-var	first = true;
-var	work = true;
+var paused = false;
+var first = true;
+var work = true;
 
 //values from spinner
 var minutes_work;
@@ -33,6 +33,10 @@ var y = 120;
 
 
 function init() {
+
+
+	initSpinners();
+
 	$("#spinner_work").spinner("value", 1);
 	$("#spinner_cycle").spinner("value", 1);
 	$("#spinner_pause").spinner("value", 1);
@@ -40,8 +44,36 @@ function init() {
 }
 
 function startInterval() {
-	
+
 	interval = setInterval(tick, speed);
+}
+
+function initSpinners() {
+
+	var myMappings = {
+		names: ["#spinner_work", "#spinner_pause", "#spinner_cycle"],
+		min: ["0", "0", "1"]
+	};
+
+	for (var i = 0; i < 3; i++) {
+		initSingleSpinner(myMappings.names[i], myMappings.min[i]);
+	}
+}
+
+function initSingleSpinner(name, minValue) {
+	var spinner = $(name).spinner({
+		min: minValue
+	}).focus(function() {
+		value = $(name).val();
+	}).blur(function() {
+		var value1 = $(name).val();
+		if (value1 < 0) {
+			$(name).val(1);
+		}
+		if (isNaN(value1)) {
+			$(name).val(value);
+		}
+	});
 }
 
 function start() {
@@ -50,7 +82,7 @@ function start() {
 		reset();
 	}
 
-	toggleHeader("close");
+
 
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
 	if (first) {
@@ -76,6 +108,8 @@ function start() {
 		setTextForElement("no time :(", "txt");
 		return;
 	}
+
+	toggleHeader("close");
 
 	//state
 	started = true;
@@ -103,6 +137,7 @@ function pause() {
 function hardReset() {
 	toggleHeader("open");
 	setDisplayedValues(0, 0, 0);
+	setTextForElement("work?", "txt");
 	reset();
 }
 
@@ -115,7 +150,7 @@ function reset() {
 	globCount_sec = 0;
 	globCount_min = 0;
 	current_second = sec_count_default;
-	minCount = 0;
+	current_minute = 0;
 
 	started = false;
 	paused = false;
@@ -130,7 +165,7 @@ function reset() {
 function button_start() {
 	document.getElementById("btn_pause").className = "btn";
 	document.getElementById("btn_start").className = "button_active";
-		setTextForElement("start", "btn_start");
+	setTextForElement("start", "btn_start");
 
 }
 
@@ -216,7 +251,7 @@ function startNextCycle() {
 		initWorkCycle();
 	}
 	initAlgo();
-	setDisplayedValues(minCount, 0, cycle);
+	setDisplayedValues(current_minute, 0, cycle);
 	started = true;
 	startInterval();
 }
@@ -229,15 +264,15 @@ function fin() {
 }
 
 function initRelaxCycle() {
-	minCount = minutes_pause;
-	if (minCount != 0)
+	current_minute = minutes_pause;
+	if (current_minute != 0)
 		setTextForElement("relax", "txt");
 	work = false;
 }
 
 function initWorkCycle() {
-	minCount = minutes_work;
-	if (minCount != 0)
+	current_minute = minutes_work;
+	if (current_minute != 0)
 		setTextForElement("work", "txt");
 	work = true;
 
@@ -245,54 +280,49 @@ function initWorkCycle() {
 
 function initAlgo() {
 	current_second = 0;
-	tick_for_minutes = 2 * Math.PI / minCount;
+	tick_for_minutes = 2 * Math.PI / current_minute;
 }
 
 //sets the inner text for a element with id text to name.
 function setTextForElement(text, name) {
-	
+
 	document.getElementById(name).innerHTML = text;
 }
 
 
 function tick() {
-
+	console.log(current_minute + " : " + current_second);
 	if (!started) return;
 
-	//wait one second in order to display the set time
-	if (first) {
-		first = false;
-		return;
+	if (current_second == 1 && current_minute == 0) {
+		playSound();		
 	}
 
 	//Sec  
-	if (current_second - 1 == -1) {
-		document.getElementById("timeSec").innerHTML = sec_count_default;
-		--current_second;
-		//display 59
+	if (current_second == 0) {
 		document.getElementById("timeSec").innerHTML = 59;
 	} else {
 		document.getElementById("timeSec").innerHTML = --current_second;
 	}
-	
 
-	if (current_second == -1) {
-		
+
+	if (current_second == 0) {
 		circle_sec.clearRect(0, 0, canvas_sec.width, canvas_sec.height);
 		initRightCircle();
-		
+
 		//init with sec = 59
-		current_second = sec_count_default - 1;
+		current_second = 59;
+
 		//angle is assigned at the end of the function
 		globCount_sec = 0;
-
-		drawAMinuteTick();
+		
 		globCount_min += tick_for_minutes;
 
-		if (minCount != 0) {
-			document.getElementById("timeMin").innerHTML = --minCount;
+		if (current_minute != 0) {
+			document.getElementById("timeMin").innerHTML = --current_minute;
+					drawAMinuteTick();
+
 		} else {
-			playSound();
 			reset();
 			initNextCycle()
 			return;
