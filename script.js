@@ -82,8 +82,6 @@ function start() {
 		reset();
 	}
 
-
-
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
 	if (first) {
 		minutes_work = $("#spinner_work").spinner("value");
@@ -291,6 +289,8 @@ function setTextForElement(text, name) {
 
 
 function tick() {
+
+	if (first) first = false;
 	console.log(current_minute + " : " + current_second);
 	if (!started) return;
 
