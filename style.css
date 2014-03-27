@@ -105,6 +105,13 @@ input {
 	padding-top:20px;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 button {
 
 	-webkit-touch-callout: none;

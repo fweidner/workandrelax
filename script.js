@@ -68,10 +68,10 @@ function initSingleSpinner(name, minValue) {
 	}).blur(function() {
 		var value1 = $(name).val();
 		if (value1 < 0) {
-			$(name).val(1);
+			$(name).val(-1);
 		}
 		if (isNaN(value1)) {
-			$(name).val(value);
+			$(name).val(-1);
 		}
 	});
 }
@@ -82,11 +82,16 @@ function start() {
 		reset();
 	}
 
+
+
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
 	if (first) {
 		minutes_work = $("#spinner_work").spinner("value");
 		minutes_pause = $("#spinner_pause").spinner("value");
 		cycle = $("#spinner_cycle").spinner("value");
+
+		if (checkForValidValues(minutes_work, minutes_pause, cycle) === 0) return;
+
 		paused = false;
 		started = false;
 	}
@@ -119,6 +124,20 @@ function start() {
 	startInterval();
 
 	setTextForElement("restart", "btn_start")
+}
+
+function checkForValidValues(min, work, cycle) {
+	if (min === -1) {
+		return 0;
+	} else if (work === -1) {
+		return 0;
+	} else if (cycle === -1) {
+		return 0;
+	} else return 1;
+}
+
+function setSpinnerToError(spinner){
+	
 }
 
 function pause() {
@@ -295,7 +314,7 @@ function tick() {
 	if (!started) return;
 
 	if (current_second == 1 && current_minute == 0) {
-		playSound();		
+		playSound();
 	}
 
 	//Sec  
@@ -315,12 +334,12 @@ function tick() {
 
 		//angle is assigned at the end of the function
 		globCount_sec = 0;
-		
+
 		globCount_min += tick_for_minutes;
 
 		if (current_minute != 0) {
 			document.getElementById("timeMin").innerHTML = --current_minute;
-					drawAMinuteTick();
+			drawAMinuteTick();
 
 		} else {
 			reset();
