@@ -36,10 +36,9 @@ function init() {
 
 
 	initSpinners();
+	setDefaultSpinnerValues();
 
-	$("#spinner_work").spinner("value", 1);
-	$("#spinner_cycle").spinner("value", 1);
-	$("#spinner_pause").spinner("value", 1);
+
 	initGraphics();
 }
 
@@ -58,6 +57,7 @@ function initSpinners() {
 	for (var i = 0; i < 3; i++) {
 		initSingleSpinner(myMappings.names[i], myMappings.min[i]);
 	}
+
 }
 
 function initSingleSpinner(name, minValue) {
@@ -68,10 +68,10 @@ function initSingleSpinner(name, minValue) {
 	}).blur(function() {
 		var value1 = $(name).val();
 		if (value1 < 0) {
-			$(name).val(-1);
+			$(name).val(1);
 		}
 		if (isNaN(value1)) {
-			$(name).val(-1);
+			$(name).val(value);
 		}
 	});
 }
@@ -82,16 +82,11 @@ function start() {
 		reset();
 	}
 
-
-
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
 	if (first) {
 		minutes_work = $("#spinner_work").spinner("value");
 		minutes_pause = $("#spinner_pause").spinner("value");
 		cycle = $("#spinner_cycle").spinner("value");
-
-		if (checkForValidValues(minutes_work, minutes_pause, cycle) === 0) return;
-
 		paused = false;
 		started = false;
 	}
@@ -126,20 +121,6 @@ function start() {
 	setTextForElement("restart", "btn_start")
 }
 
-function checkForValidValues(min, work, cycle) {
-	if (min === -1) {
-		return 0;
-	} else if (work === -1) {
-		return 0;
-	} else if (cycle === -1) {
-		return 0;
-	} else return 1;
-}
-
-function setSpinnerToError(spinner){
-	
-}
-
 function pause() {
 	if (!started) return;
 
@@ -152,10 +133,17 @@ function pause() {
 }
 
 function hardReset() {
+setDefaultSpinnerValues();
 	toggleHeader("open");
 	setDisplayedValues(0, 0, 0);
-	setTextForElement("work?", "txt");
+	setTextForElement("48-12?/beta", "txt");
 	reset();
+}
+
+function setDefaultSpinnerValues(){
+	minutes_work = $("#spinner_work").spinner("value", 48);
+	minutes_pause = $("#spinner_pause").spinner("value", 12);
+	cycle = $("#spinner_cycle").spinner("value", 1);
 }
 
 function reset() {
@@ -314,7 +302,7 @@ function tick() {
 	if (!started) return;
 
 	if (current_second == 1 && current_minute == 0) {
-		playSound();
+		playSound();		
 	}
 
 	//Sec  
@@ -334,12 +322,12 @@ function tick() {
 
 		//angle is assigned at the end of the function
 		globCount_sec = 0;
-
+		
 		globCount_min += tick_for_minutes;
 
 		if (current_minute != 0) {
 			document.getElementById("timeMin").innerHTML = --current_minute;
-			drawAMinuteTick();
+					drawAMinuteTick();
 
 		} else {
 			reset();
