@@ -40,6 +40,8 @@ function init() {
 
 
 	initGraphics();
+
+
 }
 
 function startInterval() {
@@ -77,9 +79,11 @@ function initSingleSpinner(name, minValue) {
 }
 
 function start() {
-	//re-init the timer with current values
+	// init pause?
 	if (started && !paused) {
-		reset();
+		//reset();
+		pause();
+		return;
 	}
 
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
@@ -118,7 +122,7 @@ function start() {
 	//starts the clock
 	startInterval();
 
-	setTextForElement("restart", "btn_start")
+	setTextForElement("pause", "btn_start")
 }
 
 function pause() {
@@ -168,7 +172,6 @@ function reset() {
 }
 
 function button_start() {
-	document.getElementById("btn_pause").className = "btn";
 	document.getElementById("btn_start").className = "button_active";
 	setTextForElement("start", "btn_start");
 
@@ -176,13 +179,11 @@ function button_start() {
 
 function button_pause() {
 	document.getElementById("btn_start").className = "btn";
-	setTextForElement("resume", "btn_start");
-	document.getElementById("btn_pause").className = "button_active";
+	setTextForElement("start", "btn_start");
 }
 
 function button_reset() {
 	document.getElementById("btn_start").className = "btn";
-	document.getElementById("btn_pause").className = "btn";
 	setTextForElement("start", "btn_start");
 }
 
