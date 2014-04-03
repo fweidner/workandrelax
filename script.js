@@ -86,6 +86,7 @@ function start() {
 		return;
 	}
 
+
 	//set for current values; first is necessary in order to prevent updating the variables after hitting resume
 	if (first) {
 		minutes_work = $("#spinner_work").spinner("value");
@@ -113,11 +114,14 @@ function start() {
 
 	toggleHeader("close");
 
+	button_start();
+
+
 	//state
 	started = true;
 	paused = false;
 
-	button_start();
+	
 
 	//starts the clock
 	startInterval();
@@ -172,13 +176,15 @@ function reset() {
 }
 
 function button_start() {
-	document.getElementById("btn_start").className = "button_active";
+	console.log("start");
+	document.getElementById("btn_start").className = "btn";
 	setTextForElement("start", "btn_start");
 
 }
 
 function button_pause() {
-	document.getElementById("btn_start").className = "btn";
+	console.log("pause");
+	document.getElementById("btn_start").className = "button_active";
 	setTextForElement("start", "btn_start");
 }
 

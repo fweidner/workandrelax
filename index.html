@@ -35,32 +35,32 @@
 				<div id="toggle">
 					<div class="header_row" id="left">
 						<p class="header_cell">
-							work for:
+							work for
 						</p>
-						<p class="header_cell">
-							relax for:
-						</p>
-						<p class="header_cell">
-							do
-						</p>
-					</div>
-					<div class="header_row">
 						<p class="header_cell">
 							<input id="spinner_work" name="work">
+						</p>
+						<p class="header_cell">
+							minutes
+						</p>
+					</div>
+					<div class="header_row" id="center">
+						<p class="header_cell">
+							relax for
 						</p>
 						<p class="header_cell">
 							<input id="spinner_pause" name="pause">
 						</p>
 						<p class="header_cell">
-							<input id="spinner_cycle" name="cycle">
+							minutes
 						</p>
 					</div>
 					<div class="header_row" id="right">
 						<p class="header_cell">
-							minutes
+							do it for
 						</p>
 						<p class="header_cell">
-							minutes
+							<input id="spinner_cycle" name="cycle">
 						</p>
 						<p class="header_cell">
 							cycles
@@ -68,7 +68,8 @@
 					</div>
 				</div>
 				<div id="buttons">
-					<button id="btn_start" class="btn" onclick="start()">start</button><button id="btn_reset" class="btn" onclick="hardReset()">reset</button>
+					<button id="btn_start" class="btn" onclick="start()"><span id="buttontext">start</span></button>
+					<button id="btn_reset" class="btn" onclick="hardReset()"><span id="buttontext">reset</span></button>
 				</div>
 			</div>
 			<h1 id="txt">

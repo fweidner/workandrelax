@@ -16,7 +16,7 @@ h1 {
 	color:#FFF;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size: 10em;
-	margin:-10px 10px -10px 10px;
+	margin: 0px 10px -10px 10px;
 }
 
 h2{
@@ -30,7 +30,7 @@ p, a {
 	font-family:Arial, Helvetica, sans-serif;
 	color:white;
 	font-weight: bold;
-	font-size:14px;
+	font-size:18px;
 
 }
 
@@ -40,38 +40,49 @@ p, a {
 	background-color: #64b5d1;
 	width: 100%;
 	
-	padding-bottom: 18px;
+	padding-bottom: 25px;
 }
 
 .header_row{
 	display: inline-block;
-
+	background-color: white;
+	margin-bottom: 13px;
 }
 
 .header_cell{
-	height: 36px;
+	height: 25px;
+	color: #64b5d1;
+	width: 100%; 
 }
 
 #left{
-	text-align: right;
-	padding-right:12px;
-	width: 100px;
+	text-align: center;
+	width: 130px;
+	margin-right: 16px;
+}
+
+#center{
+	text-align: center;
+	margin-left: 15px;
+	margin-right:15px;
+	width:130px;
 }
 
 #right{
-	text-align: left;
-	padding-left:12px;
-	width:100px;
+	text-align: center;
+	width:130px;
+	margin-left: 16px;
 }
 
 input {
 	width: 69px;
 	text-align: center;
+	font-size: 18px;
 }
 
 
 #toggle{
-	padding-top: 4px;
+	padding-top: 30px;
 	margin-bottom: -10px;
 }
 
@@ -102,7 +113,7 @@ input {
 
 #buttons{
 	width: 100%;
-	padding-top:20px;
+	padding-top:27px;
 }
 
 input:focus,
@@ -142,14 +153,16 @@ button {
 	display:inline-block;
 	color:#64b5d1;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size:14px;
+	font-size:18px;
 	font-weight: bold;
 	font-style:normal;
-	height:40px;
-	line-height:32px;
-	width:215px;
+	height:38px;
+	
+	width:213px;
 	text-decoration:none;
 	text-align:center;
+
+
 }
 
 .btn {
@@ -168,6 +181,11 @@ button {
 	border-color: #64b5d1;
 }
 
+#buttontext {
+	position: relative; 
+	bottom: 1px;
+}
+
 h2{
 	margin-top:10px;
 	margin-bottom:10px;
@@ -176,4 +194,18 @@ h2{
 	color:#FFF;
 	font-weight: bold;
 	text-align: center;
+}
+
+.ui-icon{
+	color: #64b5d1;
+}
+.ui-spinner-input{
+	color: white;
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	background-color: #64b5d1;
+	border-color: #64b5d1;
+	border: 0px;
+
 }
