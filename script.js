@@ -1,5 +1,5 @@
 // constants
-var speed = 1000;
+var speed = 500;
 var sec_count_default = 0;
 var tick_for_seconds = 2 * Math.PI / (60);
 
@@ -291,36 +291,33 @@ function initWorkCycle() {
 }
 
 function initAlgo() {
-	current_second = 0;
+	current_second = -1;
 	tick_for_minutes = 2 * Math.PI / current_minute;
 }
 
 //sets the inner text for a element with id text to name.
 function setTextForElement(text, name) {
-
 	document.getElementById(name).innerHTML = text;
 }
 
 
 function tick() {
 
-	if (first) first = false;
+	if (first) {
+		first = false;
+				document.getElementById("timeSec").innerHTML = 59;
+				
+	}
 	console.log(current_minute + " : " + current_second);
 	if (!started) return;
 
-	if (current_second == 1 && current_minute == 0) {
+	if (current_second == 0 && current_minute == 0) {
 		playSound();		
 	}
 
-	//Sec  
-	if (current_second == 0) {
-		document.getElementById("timeSec").innerHTML = 59;
-	} else {
-		document.getElementById("timeSec").innerHTML = --current_second;
-	}
 
 
-	if (current_second == 0) {
+	if (current_second < 0) {
 		circle_sec.clearRect(0, 0, canvas_sec.width, canvas_sec.height);
 		initRightCircle();
 
@@ -342,8 +339,17 @@ function tick() {
 			return;
 		}
 	}
+
+
+	//Sec  
+	if (current_second < 0) {
+		document.getElementById("timeSec").innerHTML = 0;
+	} else {
+		document.getElementById("timeSec").innerHTML = current_second--;
+	}
+
 	globCount_sec += tick_for_seconds;
-	drawASecondTick()
+	drawASecondTick();
 }
 
 function drawASecondTick() {
