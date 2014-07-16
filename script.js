@@ -1,5 +1,5 @@
 // constants
-var speed = 500;
+var speed = 1000;
 var sec_count_default = 0;
 var tick_for_seconds = 2 * Math.PI / (60);
 
