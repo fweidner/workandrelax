@@ -346,6 +346,10 @@ function tick() {
 		document.getElementById("timeSec").innerHTML = 0;
 	} else {
 		document.getElementById("timeSec").innerHTML = current_second--;
+		
+		// get current mode and display current time in browser tab
+		var mode = work ? "work " : "relax ";
+		document.title = mode + "(" + current_minute + ":" + current_second + ")";
 	}
 
 	globCount_sec += tick_for_seconds;
