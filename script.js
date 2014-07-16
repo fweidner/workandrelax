@@ -345,12 +345,22 @@ function tick() {
 	if (current_second < 0) {
 		document.getElementById("timeSec").innerHTML = 0;
 	} else {
-		document.getElementById("timeSec").innerHTML = current_second--;
-		
+
 		// get current mode and display current time in browser tab
 		var mode = work ? "work " : "relax ";
-		document.title = mode + "(" + current_minute + ":" + current_second + ")";
+
+		if (current_second < 10) {
+		document.title = mode + "(" + current_minute + ":0" + current_second + ")";	
+		}
+		else 
+			document.title = mode + "(" + current_minute + ":" + current_second + ")";
+		
+
+		document.getElementById("timeSec").innerHTML = current_second--;
+
+		
 	}
+
 
 	globCount_sec += tick_for_seconds;
 	drawASecondTick();
